@@ -9,7 +9,7 @@
 <body>
     <div th:replace="~{fragments/template :: navbar}"></div>
     <div class="container my-5">
-        <h1 class="mb-4">Edit</h1>
+        <h1 class="mb-4" th:text="|Edit '${tea.name}'|">Edit</h1>
         <form id="tea-form" th:object="${tea}" th:action="@{/teas/edit/{id}(id=${tea.id})}" method="post">
             <div th:replace="~{fragments/tea_form :: form}"></div>
         </form>
