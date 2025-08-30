@@ -1,6 +1,5 @@
 package final_project.leaf_and_bloom_back_office.service;
 
-import java.lang.classfile.ClassFile.Option;
 import java.util.List;
 import java.util.Optional;
 
@@ -8,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import final_project.leaf_and_bloom_back_office.model.Tea;
-import final_project.leaf_and_bloom_back_office.repository.CategoryRepository;
 import final_project.leaf_and_bloom_back_office.repository.TeaRepository;
 
 @Service

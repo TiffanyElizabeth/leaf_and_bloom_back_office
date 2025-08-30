@@ -25,19 +25,22 @@ public class Tea {
     @Size(max = 50, message = "The tea's name cannot have more than 50 characters")
     private String name;
 
+    @NotBlank(message = "Please include a short description of the tea")
     @Size(max = 500, message = "The tea's description cannot have more than 500 characters")
     private String description;
 
     @NotNull(message = "Please specify if the tea is caffeinated or not")
     private Boolean caffeinated;
 
-    @Size(max = 200, message = "The specified url must have no longer than 200 characters")
+    @Size(max = 200, message = "The specified url must have no more than 200 characters")
     private String photoUrl;
 
+    @NotNull(message = "Please specify the current number of items in stock.")
     @PositiveOrZero(message = "There cannot be a negative number of items in stock")
     private Integer stock;
 
-    @PositiveOrZero(message = "The price cannot be a negative number")
+    @NotNull(message = "Please specify the price.")
+    @PositiveOrZero(message = "The price cannot be a negative number.")
     private Double price;
 
     // relationships

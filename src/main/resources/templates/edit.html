@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/template :: head}"></div>
+    <title th:text="|Edit '${tea.name}'|">Edit </title>
+</head>
+
+<body>
+    <div th:replace="~{fragments/template :: navbar}"></div>
+    <div class="container my-5">
+        <h1 class="mb-4">Edit</h1>
+        <form id="tea-form" th:object="${tea}" th:action="@{/teas/edit/{id}(id=${tea.id})}" method="post">
+            <div th:replace="~{fragments/tea_form :: form}"></div>
+        </form>
+
+
+        <div th:replace="~{fragments/template :: js}"></div>
+</body>
+
+</html>

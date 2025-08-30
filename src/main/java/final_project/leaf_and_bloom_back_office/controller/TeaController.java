@@ -1,7 +1,6 @@
 package final_project.leaf_and_bloom_back_office.controller;
 
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -11,8 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import final_project.leaf_and_bloom_back_office.model.Tea;
 import final_project.leaf_and_bloom_back_office.service.CategoryService;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
-import jakarta.validation.Valid;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,13 +63,13 @@ public class TeaController {
     @GetMapping("/create")
     public String create(Model model) {
         model.addAttribute("tea", new Tea());
-        return "create_or_edit";
+        return "create";
     }
 
     @PostMapping("/create")
     public String store(@Valid @ModelAttribute("tea") Tea formTea, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
-            return "create_or_edit";
+            return "create";
         }
         teaService.create(formTea);
         return "redirect:/teas";
@@ -80,14 +79,17 @@ public class TeaController {
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
         model.addAttribute("tea", teaService.getById(id));
-        return "create_or_edit";
+        return "edit";
     }
 
     @PostMapping("/edit/{id}")
-    public String update(@Valid @ModelAttribute("tea") Tea formTea, BindingResult bindingResult, Model model) {
+    public String update(@Valid @ModelAttribute("tea") Tea formTea,
+            BindingResult bindingResult,
+            Model model) {
         if (bindingResult.hasErrors()) {
-            return "create_or_edit";
+            return "edit";
         }
+
         teaService.update(formTea);
         return "redirect:/teas";
     }
