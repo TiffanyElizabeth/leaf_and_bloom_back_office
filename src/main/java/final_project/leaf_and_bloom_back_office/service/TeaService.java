@@ -31,4 +31,17 @@ public class TeaService {
     public List<Tea> findByName(String name) {
         return teaRepository.findByNameContainingIgnoreCase(name);
     }
+
+    public Tea create(Tea tea) {
+        return teaRepository.save(tea);
+    }
+
+    public Tea update(Tea tea) {
+        return teaRepository.save(tea);
+    }
+
+    public void deleteById(Integer id) {
+        Tea tea = getById(id);
+        teaRepository.delete(tea);
+    }
 }
