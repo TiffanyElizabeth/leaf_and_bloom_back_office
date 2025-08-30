@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <div th:replace="~{fragments/template :: head}"></div>
+    <title>home</title>
+</head>
+
+<body>
+    <!-- <div th:replace="~{fragments/template :: navbar}"></div> /!-->
+    <h1>Welcome to Leaf and Bloom</h1>
+
+    <div th:if="${!hasTeas}" class="alert alert-info">We apologise. No teas match your search.</div>
+
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4" th:if="${hasTeas}">
+        <div class="col" th:each="tea : ${teas}">
+            <div class="card h-100 shadow-sm">
+                <img th:src="@{${tea.photoUrl != null && !tea.photoUrl.isEmpty() ? '/img/' + tea.photoUrl : '/img/teaplaceholder.jpg'}}"
+                    class="card-img-top" alt="Tea Image">
+
+
+                <div class="card-body d-flex flex-column justify-content-between">
+                    <h5 class="card-title">
+                        <a th:href="@{'/teas/' + ${tea.id}}" th:text="${tea.name}"></a>
+                    </h5>
+                    <div class="d-flex justify-content-between align-items-center">
+                        <p class="card-text fw-semibold text-dark"
+                            th:text="'€' + ${#numbers.formatDecimal(tea.price, 1, 'COMMA', 2, 'POINT')}"></p>
+                        <!--<div class="d-flex gap-1">
+                            <a th:href="@{/teas/{id}/promo(id=${pizza.id})}" class="btn btn-warning btn-sm">New
+                                Promo</a>
+
+                            <a th:href="@{/pizzas/edit/{id}(id=${pizza.id})}"
+                                class="btn btn-success btn-sm">Edit</a>
+                            <form action="#" th:action="@{/pizzas/delete/{id}(id=${pizza.id})}" method="post">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </div> /!-->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div th:replace="~{fragments/template :: js}"></div>
+</body>
+
+</html>
