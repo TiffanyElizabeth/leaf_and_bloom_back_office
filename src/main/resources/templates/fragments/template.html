@@ -14,7 +14,7 @@
     <div th:fragment="navbar">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <div class="navbar-brand">Leaf & Bloom</div>
+                <a class="navbar-brand" th:href="@{/teas}">Leaf & Bloom</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -52,7 +52,7 @@
                                 </li>
                                 <hr class="dropdown-divider">
                         </li>
-                        <li><a class="dropdown-item" href="@{/teas}">View All</a></li>
+                        <li><a class="dropdown-item" th:href="@{/teas}">View All</a></li>
                     </ul>
                     </li>
                     </ul>
