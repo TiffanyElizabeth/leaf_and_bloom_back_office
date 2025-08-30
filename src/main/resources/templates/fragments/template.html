@@ -14,7 +14,7 @@
     <div th:fragment="navbar">
         <nav class="navbar navbar-expand-lg bg-body-tertiary">
             <div class="container-fluid">
-                <a class="navbar-brand" th:href="@{/}">Pizzeria 138</a>
+                <div class="navbar-brand">Leaf & Bloom</div>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
@@ -23,34 +23,46 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" th:href="@{/pizzas}">Pizzas</a>
+                            <a class="nav-link active" aria-current="page" th:href="@{/teas/create}">Add a New Tea</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" th:href="@{/ingredients}"
-                                sec:authorize="hasAuthority('ADMIN')">Ingredients</a>
-                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
                                 aria-expanded="false">
-                                About Us
+                                Our Teas
                             </a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Our Story</a></li>
-                                <li><a class="dropdown-item" href="#">Work with Us</a></li>
                                 <li>
-                                    <hr class="dropdown-divider">
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=1)}">White Teas</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#">Get in Touch</a></li>
-                            </ul>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=2)}">Green Teas</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=3)}">Oolong Teas</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=4)}">Black Teas</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=5)}">Herbal Teas</a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" th:href="@{/teas(categoryId=6)}">Rooibis Teas</a>
+                                </li>
+                                <hr class="dropdown-divider">
                         </li>
+                        <li><a class="dropdown-item" href="@{/teas}">View All</a></li>
                     </ul>
-                    <div class="d-flex align-items-center justify-content-between">
+                    </li>
+                    </ul>
+                    <!--<div class="d-flex align-items-center justify-content-between">
                         <div class="me-3">
                             Hello, <span sec:authentication="name"></span>
                             <span sec:authentication="principal.authorities"></span>
                         </div>
                         <a class="btn btn-sm btn-primary" href="/logout">Sign out</a>
-                    </div>
+                    </div> /!-->
                 </div>
             </div>
         </nav>

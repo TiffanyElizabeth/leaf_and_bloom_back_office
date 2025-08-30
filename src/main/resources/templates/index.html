@@ -7,7 +7,7 @@
 </head>
 
 <body>
-    <!--<div th:replace="~{fragments/template :: navbar}"></div>/!-->
+    <div th:replace="~{fragments/template :: navbar}"></div>
 
     <div class="container my-5">
         <div class="d-flex justify-content-between align-items-center">
@@ -40,18 +40,20 @@
                             <span th:if="${tea.stock > 0 && tea.stock < 4}" class="text-warning">⚠️</span>
                             <span th:if="${tea.stock >= 4}" class="text-success">✔️</span>
                         </th>
-                        <td>[[${tea.name}]]</td>
+                        <td>
+                            <a th:href="@{/teas/{id}(id=${tea.id})}">[[${tea.name}]]</a>
+                        </td>
+
                         <td th:text="${tea.category != null ? tea.category.name : 'No category'}"></td>
 
                         <td>
                             <div class="d-flex justify-content-end">
                                 <a th:href="@{/teas/edit/{id}(id=${tea.id})}"
                                     class="btn btn-success btn-sm me-2">Edit</a>
-                                <!--<form action="#" th:action="@{/ingredients/delete/{id}(id=${ingredient.id})}"
-                                    method="post">
+                                <form action="#" th:action="@{/teas/delete/{id}(id=${tea.id})}" method="post">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                             </div>
-                            </form> /!-->
+                            </form>
                         </td>
                     </tr>
                 </tbody>

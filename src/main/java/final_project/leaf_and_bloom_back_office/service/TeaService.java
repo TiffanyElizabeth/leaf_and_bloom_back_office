@@ -32,6 +32,10 @@ public class TeaService {
         return teaRepository.findByNameContainingIgnoreCase(name);
     }
 
+    public List<Tea> findByCategoryId(Integer categoryId) {
+        return teaRepository.findByCategoryId(categoryId);
+    }
+
     public Tea create(Tea tea) {
         return teaRepository.save(tea);
     }

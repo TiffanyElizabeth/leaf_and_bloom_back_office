@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import final_project.leaf_and_bloom_back_office.model.Tea;
+import final_project.leaf_and_bloom_back_office.service.CategoryService;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
 import jakarta.validation.Valid;
 
@@ -25,11 +26,24 @@ public class TeaController {
     @Autowired
     private TeaService teaService;
 
+    @Autowired
+    private CategoryService categoryService;
+
     @GetMapping
-    public String index(Model model) {
-        List<Tea> teas = teaService.findAll();
+    public String index(@RequestParam(required = false) Integer categoryId, Model model) {
+        List<Tea> teas;
+
+        if (categoryId != null) {
+            teas = teaService.findByCategoryId(categoryId);
+        } else {
+            teas = teaService.findAll();
+        }
+
         model.addAttribute("teas", teas);
         model.addAttribute("hasTeas", !teas.isEmpty());
+        model.addAttribute("categories", categoryService.findAll());
+        model.addAttribute("selectedCategoryId", categoryId);
+
         return "index";
     }
 
