@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import final_project.leaf_and_bloom_back_office.exception.TeaNotFoundException;
 import final_project.leaf_and_bloom_back_office.model.Tea;
 import final_project.leaf_and_bloom_back_office.service.CategoryService;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
@@ -29,27 +30,60 @@ public class TeaController {
     private CategoryService categoryService;
 
     @GetMapping
-    public String index(@RequestParam(required = false) Integer categoryId, Model model) {
+    public String index(@RequestParam(required = false) Integer categoryId,
+            @RequestParam(required = false) String name,
+            @RequestParam(required = false) String error,
+            Model model) {
+
+        boolean hasName = name != null && !name.trim().isEmpty();
+        boolean hasCategory = categoryId != null;
+
         List<Tea> teas;
 
-        if (categoryId != null) {
+        if (hasName) {
+            // global search by name (ignores categoryId)
+            teas = teaService.findByName(name.trim());
+            model.addAttribute("scope", "all");
+        } else if (hasCategory) {
+            // no search term => show teas for the given category
             teas = teaService.findByCategoryId(categoryId);
+            model.addAttribute("scope", "category");
         } else {
+            // no filters => show all teas
             teas = teaService.findAll();
+            model.addAttribute("scope", "all");
         }
 
         model.addAttribute("teas", teas);
         model.addAttribute("hasTeas", !teas.isEmpty());
-        model.addAttribute("categories", categoryService.findAll());
-        model.addAttribute("selectedCategoryId", categoryId);
+        model.addAttribute("searchTerm", hasName ? name.trim() : null);
+        model.addAttribute("categoryId", categoryId);
+
+        // fallback to infer category name from the first tea when showing a category
+        if (hasCategory) {
+            String categoryName = null;
+            if (!teas.isEmpty() && teas.get(0).getCategory() != null) {
+                categoryName = teas.get(0).getCategory().getName();
+            }
+            model.addAttribute("categoryName", categoryName);
+        }
+
+        // return error message if tea not found
+        if ("notfound".equals(error)) {
+            model.addAttribute("errorMessage", "Tea not found!");
+        }
 
         return "index";
     }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") Integer id, Model model) {
-        model.addAttribute("tea", teaService.getById(id));
-        return "detail";
+        try {
+            model.addAttribute("tea", teaService.getById(id));
+            return "detail";
+        } catch (TeaNotFoundException exception) {
+            return "redirect:/teas?error=notfound";
+        }
     }
 
     @GetMapping("searchByName")
@@ -78,8 +112,12 @@ public class TeaController {
 
     @GetMapping("/edit/{id}")
     public String edit(@PathVariable Integer id, Model model) {
-        model.addAttribute("tea", teaService.getById(id));
-        return "edit";
+        try {
+            model.addAttribute("tea", teaService.getById(id));
+            return "edit";
+        } catch (TeaNotFoundException exception) {
+            return "redirect:/teas?error=notfound";
+        }
     }
 
     @PostMapping("/edit/{id}")
@@ -96,8 +134,12 @@ public class TeaController {
 
     @PostMapping("/delete/{id}")
     public String deleteById(@PathVariable Integer id) {
-        teaService.deleteById(id);
-        return "redirect:/teas";
+        try {
+            teaService.deleteById(id);
+            return "redirect:/teas";
+        } catch (TeaNotFoundException exception) {
+            return "redirect:/teas?error=notfound";
+        }
     }
 
 }

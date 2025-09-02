@@ -15,15 +15,18 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
 
     @Bean
-    @SuppressWarnings("removal")
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(requests -> requests
-                        .anyRequest().authenticated() // require login for all pages
-                )
-                .formLogin(Customizer.withDefaults()) // default login page
-                .logout(Customizer.withDefaults()) // default logout
-                .exceptionHandling(Customizer.withDefaults());
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/", "/login", "/api/**", "/webjars/**", "/css/**",
+                                "/js/**")
+                        .permitAll()
+                        .requestMatchers("/teas/**").authenticated()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .defaultSuccessUrl("/teas", true))
+
+                .logout(Customizer.withDefaults());
 
         return http.build();
     }
