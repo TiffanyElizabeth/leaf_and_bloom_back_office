@@ -13,7 +13,6 @@ import final_project.leaf_and_bloom_back_office.model.Tea;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController

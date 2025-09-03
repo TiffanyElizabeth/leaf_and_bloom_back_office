@@ -2,6 +2,8 @@ package final_project.leaf_and_bloom_back_office.model;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -28,6 +30,7 @@ public class Category {
     private String photoUrl;
 
     // relationships
+    @JsonBackReference
     @OneToMany(mappedBy = "category")
     private List<Tea> teas;
 
