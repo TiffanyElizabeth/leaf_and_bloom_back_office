@@ -9,7 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import final_project.leaf_and_bloom_back_office.model.Tea;
+import final_project.leaf_and_bloom_back_office.model.*;
+import final_project.leaf_and_bloom_back_office.service.CategoryService;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class TeaRestController {
     @Autowired
     private TeaService teaService;
+
+    @Autowired
+    private CategoryService categoryService;
 
     @GetMapping
     public List<Tea> index() {
@@ -41,6 +45,16 @@ public class TeaRestController {
         }
 
         return new ResponseEntity<Tea>(teaAttempt.get(), HttpStatus.OK);
+    }
+
+    @GetMapping("/categories")
+    public List<Category> getAllCategories() {
+        return categoryService.findAll();
+    }
+
+    @GetMapping("/categories/{categoryId}")
+    public List<Tea> getByCategory(@PathVariable Integer categoryId) {
+        return teaService.findByCategoryId(categoryId);
     }
 
 }
