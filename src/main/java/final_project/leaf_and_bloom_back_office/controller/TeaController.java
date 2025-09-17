@@ -32,44 +32,17 @@ public class TeaController {
             @RequestParam(required = false) String error,
             Model model) {
 
-        boolean hasName = name != null && !name.trim().isEmpty();
-        boolean hasCategory = categoryId != null;
-
-        List<Tea> teas;
-
-        if (hasName) {
-            // global search by name (ignores categoryId)
-            teas = teaService.findByName(name.trim());
-            model.addAttribute("scope", "all");
-        } else if (hasCategory) {
-            // no search term => show teas for the given category
-            teas = teaService.findByCategoryId(categoryId);
-            model.addAttribute("scope", "category");
-        } else {
-            // no filters => show all teas
-            teas = teaService.findAll();
-            model.addAttribute("scope", "all");
-        }
+        List<Tea> teas = teaService.findFiltered(name, categoryId);
 
         model.addAttribute("teas", teas);
         model.addAttribute("hasTeas", !teas.isEmpty());
-        model.addAttribute("searchTerm", hasName ? name.trim() : null);
+        model.addAttribute("searchTerm", name);
         model.addAttribute("categoryId", categoryId);
-
-        // fallback to infer category name from the first tea when showing a category
-        if (hasCategory) {
-            String categoryName = null;
-            if (!teas.isEmpty() && teas.get(0).getCategory() != null) {
-                categoryName = teas.get(0).getCategory().getName();
-            }
-            model.addAttribute("categoryName", categoryName);
-        }
 
         // return error message if tea not found
         if ("notfound".equals(error)) {
             model.addAttribute("errorMessage", "Tea not found!");
         }
-
         return "index";
     }
 

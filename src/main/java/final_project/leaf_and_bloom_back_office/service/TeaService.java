@@ -20,6 +20,20 @@ public class TeaService {
         return teaRepository.findAll();
     }
 
+    // return filtered teas
+    public List<Tea> findFiltered(String name, Integer categoryId) {
+        boolean hasName = name != null && !name.trim().isEmpty();
+        boolean hasCategory = categoryId != null;
+
+        if (hasName) {
+            return findByName(name.trim());
+        } else if (hasCategory) {
+            return findByCategoryId(categoryId);
+        } else {
+            return findAll();
+        }
+    }
+
     // return optional - if it is empty, the caller decides what to do - i don't
     // always have to handle the exception (depends on the caller)
     public Optional<Tea> findById(Integer id) {
