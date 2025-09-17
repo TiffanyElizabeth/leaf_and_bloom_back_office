@@ -1,12 +1,17 @@
 package final_project.leaf_and_bloom_back_office.model;
 
-import jakarta.persistence.Entity;
+import com.fasterxml.jackson.annotation.JsonManagedReference; //In bidirectional relationships, serializing objects to JSON can cause infinite loops. @JsonManagedReference marks the parent/forward side to include in JSON, and @JsonBackReference marks the child/back side to ignore. Together, they prevent infinite recursion while preserving the relationship.
+
+import jakarta.persistence.Entity; // marks Java class as a JPA entity (--> Hibernate : "This class is a table in the database")
+// annotations to define the primary key and auto-generation strategy:
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.JoinColumn; // specifies foreign key in teas table 
+import jakarta.persistence.ManyToOne; // establishes many to one relationship
+import jakarta.persistence.Table; // allows me to override default name 
+
+// annotations that validate user input 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
@@ -46,13 +51,14 @@ public class Tea {
     // relationships
     @ManyToOne
     @JoinColumn(name = "category_id", nullable = false)
+    @JsonManagedReference
     private Category category;
 
-    // empty constructor for JPA
+    // empty constructor for JPA - needed to instantiate objects from database rows
     public Tea() {
     }
 
-    // constructor - why?
+    // constructor - allows easy object craetion in development
 
     public Tea(String name, String description, Boolean caffeinated, String photoUrl, Integer stock,
             Double price, Category category) {
@@ -65,8 +71,11 @@ public class Tea {
         this.category = category;
     }
 
-    // getters and setters
-
+    // getters and setters : Getters and setters are essential in JPA entities.
+    // Getters allow frameworks like Hibernate to read field values, setters allow
+    // populating objects from database rows or incoming requests. They also
+    // maintain encapsulation, keeping fields private but accessible in a controlled
+    // way.
     public Integer getId() {
         return this.id;
     }
@@ -131,7 +140,7 @@ public class Tea {
         this.category = category;
     }
 
-    // toString
+    // toString useful for debugging
     @Override
     public String toString() {
         return String.format("%s, €%.2f", this.name, this.price);

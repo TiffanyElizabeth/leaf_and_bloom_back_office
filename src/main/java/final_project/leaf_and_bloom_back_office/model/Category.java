@@ -1,15 +1,18 @@
 package final_project.leaf_and_bloom_back_office.model;
 
-import java.util.List;
+import java.util.List; /// We declare the relationship as List<Tea> instead of ArrayList<Tea> because JPA entities should be coded to interfaces. This allows Hibernate to use its own internal implementation for lazy loading, proxies, or optimized collections, while still providing all standard list operations. It’s a best practice to program to the interface, not the concrete class
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonBackReference; // n bidirectional relationships, serializing objects to JSON can cause infinite loops. @JsonManagedReference marks the parent/forward side to include in JSON, and @JsonBackReference marks the child/back side to ignore. Together, they prevent infinite recursion while preserving the relationship.
 
+// JPA
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
+// annotations that validate user input 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
 
