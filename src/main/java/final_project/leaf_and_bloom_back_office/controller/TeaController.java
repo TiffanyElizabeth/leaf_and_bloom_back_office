@@ -26,9 +26,6 @@ public class TeaController {
     @Autowired
     private TeaService teaService;
 
-    @Autowired
-    private CategoryService categoryService;
-
     @GetMapping
     public String index(@RequestParam(required = false) Integer categoryId,
             @RequestParam(required = false) String name,
