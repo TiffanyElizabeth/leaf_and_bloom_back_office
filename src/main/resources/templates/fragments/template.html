@@ -16,8 +16,7 @@
             <div class="container-fluid">
                 <a class="navbar-brand" th:href="@{http://localhost:5173/}">Leaf & Bloom</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                    data-bs-target="#navbarSupportedContent">
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -25,8 +24,7 @@
 
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                                 Our Teas
                             </a>
                             <ul class="dropdown-menu">
@@ -54,15 +52,13 @@
                     </ul>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" th:href="@{/teas/create}">Add a New Tea</a>
+                        <a class="nav-link active" th:href="@{/teas/create}">Add a New Tea</a>
                     </li>
                     <li class="nav-item d-flex align-items-center">
-                        <form th:action="@{/teas}" method="get" class="d-flex" role="search" aria-label="Search teas">
-                            <label for="nav-search" class="visually-hidden">Search all teas</label>
+                        <form th:action="@{/teas}" method="get" class="d-flex">
                             <div class="input-group input-group-sm">
                                 <input id="nav-search" name="name" type="search" class="form-control form-control-sm"
-                                    placeholder="Search all teas" aria-label="Search all teas"
-                                    th:value="${param.name}" />
+                                    placeholder="Search all teas" th:value="${param.name}" />
                                 <button class="btn btn-outline-primary btn-sm" type="submit">Search</button>
                             </div>
                         </form>

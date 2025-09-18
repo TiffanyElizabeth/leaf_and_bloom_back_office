@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import final_project.leaf_and_bloom_back_office.exception.TeaNotFoundException;
 import final_project.leaf_and_bloom_back_office.model.Tea;
-import final_project.leaf_and_bloom_back_office.service.CategoryService;
 import final_project.leaf_and_bloom_back_office.service.TeaService;
 
 import jakarta.validation.Valid;
@@ -35,11 +34,12 @@ public class TeaController {
         List<Tea> teas = teaService.findFiltered(name, categoryId);
 
         model.addAttribute("teas", teas);
-        model.addAttribute("hasTeas", !teas.isEmpty());
+        model.addAttribute("hasTeas", !teas.isEmpty()); // template offers alert "We apologise. No teas match your
+                                                        // search." if !hasTeas
         model.addAttribute("searchTerm", name);
         model.addAttribute("categoryId", categoryId);
 
-        // return error message if tea not found
+        // return "Tea not found" alert
         if ("notfound".equals(error)) {
             model.addAttribute("errorMessage", "Tea not found!");
         }
@@ -54,14 +54,6 @@ public class TeaController {
         } catch (TeaNotFoundException exception) {
             return "redirect:/teas?error=notfound";
         }
-    }
-
-    @GetMapping("searchByName")
-    public String searchByName(@RequestParam("name") String name, Model model) {
-        List<Tea> teas = teaService.findByName(name);
-        model.addAttribute("teas", teas);
-        model.addAttribute("hasTeas", !teas.isEmpty());
-        return "index";
     }
 
     @GetMapping("/create")
