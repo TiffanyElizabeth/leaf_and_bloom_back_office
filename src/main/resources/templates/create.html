@@ -10,6 +10,7 @@
     <div th:replace="~{fragments/template :: navbar}"></div>
     <div class="container my-5">
         <h1 class="mb-4">Add a new tea</h1>
+        <!-- th:object binds form inputs to tea object / th:action sends POST request to specified URL -->
         <form id="tea-form" th:object="${tea}" th:action="@{/teas/create}" method="post">
             <div th:replace="~{fragments/tea_form :: form}"></div>
         </form>
