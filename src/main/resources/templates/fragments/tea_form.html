@@ -1,13 +1,23 @@
+<!-- fragment containing all inputs for form - used then in create and edit - validates user input, displaying errors as necessary -->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
+<head>
+    <div th:replace="~{fragments/template :: head}"></div>
+    <title>tea form</title>
+</head>
+
 <body>
     <div th:fragment="form">
+        <!-- tea name -->
         <div class="mb-3">
             <label class="form-label" for="name">Tea Name</label>
             <input type="text" class="form-control" id="name" placeholder="Enter tea name" th:field="*{name}"
                 th:errorClass="is-invalid">
+            <!-- th:field="*{name}" binds this input to the name property of the form-backing object (passed from the controller as ${tea} in create or edit) -->
+            <!-- h:errorClass="is-invalid" adds the is-invalid CSS class if there’s a validation error -->
             <div class="invalid-feedback" th:if="${#fields.hasErrors('name')}">
+                <!-- checks if validation errors exist for name ^^ then loops through errors for this field and displays them -->
                 <ul>
                     <li th:each="error : ${#fields.errors('name')}" th:text=${error}></li>
                 </ul>
@@ -15,6 +25,7 @@
         </div>
 
         <div class="d-flex justify-content-between">
+            <!-- tea category -->
             <div class="mb-3">
                 <label class="form-label" for="category">Category</label>
                 <select class="form-select" id="category" th:field="*{category.id}">
@@ -32,6 +43,7 @@
                 </div>
             </div>
 
+            <!-- caffeinated? -->
             <div class="mb-3">
                 <label class="form-label" for="caffeinated">Caffeinated</label>
                 <select class="form-select" id="caffeinated" th:field="*{caffeinated}">
@@ -44,6 +56,8 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- price -->
             <div class="mb-3">
                 <label class="form-label" for="price">Price</label>
                 <input type="number" step="0.01" class="form-control" id="price" placeholder="€" th:field="*{price}"
@@ -54,6 +68,8 @@
                     </ul>
                 </div>
             </div>
+
+            <!-- stock -->
             <div class="mb-3">
                 <label class="form-label" for="stock">Stock</label>
                 <select class="form-select" id="stock" th:field="*{stock}">
@@ -65,10 +81,9 @@
                     </ul>
                 </div>
             </div>
-
-
         </div>
 
+        <!-- description -->
         <div class="mb-3">
             <label class="form-label" for="description">Tea description</label>
             <textarea type="text" class="form-control" id="description" placeholder="Enter description"
@@ -80,6 +95,7 @@
             </div>
         </div>
 
+        <!-- photo link -->
         <div class="mb-3">
             <label class="form-label" for="photoUrl">Photo Link</label>
             <input type="text" class="form-control" id="photoUrl" placeholder="Enter url" th:field="*{photoUrl}"
@@ -94,17 +110,16 @@
 
 
 
-
+        <!-- buttons -->
         <div class="mb-3 d-flex justify-content-between">
             <button type="submit" class="btn btn-primary" value="add new tea">Submit</button>
+            <!-- sends as post request -->
             <button type="reset" class="btn btn-warning" value="reset all fields">Reset</button>
         </div>
     </div>
 
     <!-- bootstrap -->
-    <div th:fragment="js">
-        <script th:src="@{/webjars/bootstrap/5.3.5/js/bootstrap.bundle.min.js}"></script>
-    </div>
+    <div th:replace="~{template :: js}"></div>
 </body>
 
 </html>
