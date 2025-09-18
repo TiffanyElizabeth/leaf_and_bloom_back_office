@@ -10,7 +10,7 @@
     <div th:replace="~{fragments/template :: navbar}"></div>
 
     <div class="container my-5">
-        <!-- errorMessage - index as reroute from show/edit/delete -->
+        <!-- errorMessage - see index in TeaController -->
         <div th:if="${errorMessage}" class="alert alert-danger">
             <p th:text="${errorMessage}"></p>
         </div>
@@ -19,9 +19,6 @@
             <h1 class="mb-4">Our Teas</h1>
             <a th:href="@{/teas/create}" class="btn btn-primary btn-sm mb-4">Add a new tea</a>
         </div>
-
-        <!-- if findFiltered (TeaService) returns an empty list (index) -->
-        <div th:if="${!hasTeas}" class="alert alert-info">We apologise. No teas match your search.</div>
 
         <!-- if findFiltered (TeaService) doesn't return an empty list (index) we get a table with the resulting teas -->
         <div class="col-12" th:if="${hasTeas}">
@@ -54,8 +51,8 @@
                                     class="btn btn-success btn-sm me-2">Edit</a>
                                 <form th:action="@{/teas/delete/{id}(id=${tea.id})}" method="post">
                                     <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form>
                             </div>
-                            </form>
                         </td>
                     </tr>
                 </tbody>
