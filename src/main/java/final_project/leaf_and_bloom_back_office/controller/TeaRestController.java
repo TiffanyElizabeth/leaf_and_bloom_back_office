@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RestController; // exposes endpoi
 import org.springframework.web.bind.annotation.CrossOrigin; // allows requests from different domains (here, to allow React FE access)
 import org.springframework.web.bind.annotation.GetMapping; // maps HTTP GET request to a method
 import org.springframework.web.bind.annotation.PathVariable; // extracts values from the UR
-L
 import org.springframework.web.bind.annotation.RequestParam; // extracts query parameters from the URL
 
 import final_project.leaf_and_bloom_back_office.model.*;

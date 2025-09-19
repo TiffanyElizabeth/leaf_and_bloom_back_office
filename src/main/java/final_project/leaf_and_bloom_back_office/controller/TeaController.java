@@ -8,7 +8,7 @@ import java.util.List; // gives List inferface from Collections framework - used
 import org.springframework.stereotype.Controller; // marks class as Spring MVC controller
 import org.springframework.ui.Model; // represents the data model passed to the view - used to add attributes that Thymeleaf can then access
 import jakarta.validation.Valid; // for validating form input according to restraints outlined in model
-import org.springframework.validation.BindingResult; // captures the result of validation and let's us check for errors
+import org.springframework.validation.BindingResult; // captures the result of validation and allows us to display error messages
 import org.springframework.beans.factory.annotation.Autowired; // marks as dependency injection - Spring automatically provides an instance of TeaService for my controller
 import org.springframework.web.bind.annotation.GetMapping; // maps HTTP GET requests to a specific controller method 
 import org.springframework.web.bind.annotation.RequestMapping; // sets a base path for all routes in this controller 
