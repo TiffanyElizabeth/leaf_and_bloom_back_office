@@ -10,28 +10,32 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-@Configuration
-@EnableWebSecurity
+@Configuration // tells Spring this class contains beans - methods that produce objects that
+               // Spring manages
+@EnableWebSecurity // enables Spring Security
 public class SecurityConfiguration {
 
-    @Bean
+    @Bean // declares bean which configures how HTTP security works
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests(auth -> auth
+                .authorizeHttpRequests(auth -> auth // which URLS are public and which require login
                         .requestMatchers("/", "/login", "/api/**", "/webjars/**", "/css/**",
                                 "/js/**")
                         .permitAll()
                         .requestMatchers("/teas/**").authenticated()
                         .anyRequest().authenticated())
-                .formLogin(form -> form
+                .formLogin(form -> form // configures login form behavior, forces redirect to /teas no matter where user
+                                        // came from
                         .defaultSuccessUrl("/teas", true))
 
-                .logout(Customizer.withDefaults());
+                .logout(Customizer.withDefaults()); // default logout page
 
-        return http.build();
+        return http.build(); // builds and returns the securityfilterchain to Spring
     }
 
-    @Bean
+    @Bean // connects Spring Security to database for authentication using
+          // DatabaseUserDetailsService to load users and PasswrodEncoder to check
+          // passwords
     @SuppressWarnings("deprecation")
     DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();

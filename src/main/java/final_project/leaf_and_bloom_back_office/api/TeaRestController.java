@@ -1,4 +1,4 @@
-package final_project.leaf_and_bloom_back_office.controller;
+package final_project.leaf_and_bloom_back_office.api;
 
 import java.util.List; // used to return multiple teas/categories
 import java.util.Optional; // used when retrieving a single tea by ID (may or may not exist)
