@@ -1,0 +1,25 @@
+(1) back office
+MVC
+Data - 3 entities - mapped to DB JPA / Hibernate - what the data looks like and validation rules
+Repository - interaction with database - i query
+Service - what to do with data
+Controller - req/res - endpoint - what data to pass to view and which view
+View - what user sees - Thymeleaf - functionality
+Admin --> Spring security
+!= public
+Users defined in DB using model - adapted for Spring w/ DatabaseUserDetails
+DBUserDetailsService implements UserDetailsService - uses UserRepo to fetch users from DB --> DBUserDetails OR
+UsernameNtoFoundException
+SecurityConfig = DaoAuthenticationProvider (PasswordEncoder) & FilterChain
+
+Custom REST API - TeaRestController
+
+(2) guest site
+React
+Node
+Vite
+JSX
+Site structure
+Home & About - DefaultLayout (Header + Footer) - Banner - Styling(bootstrap + custom) - Category Cards
+TeasList - full list - list with search results - filtered by Category
+TeaDetail
